@@ -61,11 +61,12 @@ function murkupCountries(countries) {
 }
 //--
 refs.countries.addEventListener('click', e => {
-  if (e.target != e.target.closest('li')) return;
-  const countyQuery = `${e.target.textContent}?fullText=true`;
+  if (!e.target.closest('[data-name]')) return;
+  const currentLi = e.target.closest('[data-name]');
+  const countyQuery = `${currentLi.dataset.name}?fullText=true`;
   fetchCountries(countyQuery).then(data => {
     murkupCountry(data);
-    refs.inputSrch.value = e.target.textContent;
+    refs.inputSrch.value = currentLi.dataset.name;
     refs.countries.innerHTML = '';
   });
 });
