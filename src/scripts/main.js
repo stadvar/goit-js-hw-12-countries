@@ -1,7 +1,7 @@
 import fetchCountries from './fetchCountries';
 let debounce = require('lodash.debounce');
 const { error, defaults } = require('@pnotify/core');
-defaults.delay = 1500;
+defaults.delay = 1000;
 
 import compiledCountryTemplate from '../templates/country.hbs';
 import compiledCountriesTemplate from '../templates/countries.hbs';
@@ -34,11 +34,13 @@ refs.inputSrch.addEventListener(
             text: 'Too many matches found. Please enter a more specific query!',
           });
           refs.article.innerHTML = '';
+          refs.countries.innerHTML = '';
           console.log('Too many matches found');
           return;
         }
         if (data.length === 1) {
           murkupCountry(data);
+          refs.countries.innerHTML = '';
           return;
         }
         murkupCountries(data);
