@@ -20,15 +20,17 @@ refs.inputSrch.addEventListener(
     }
     fetchCountries(refs.inputSrch.value)
       .then(data => {
-        if (!data) return;
-        if (data.status === 404) {
-          error({
-            text: 'Wrong request',
-          });
-          console.log('Bad request');
-          refs.article.innerHTML = '';
-          return;
-        }
+        console.log(data);
+        // if (!data) return;
+        // if (data.status === 404) {
+        //   error({
+        //     text: 'Wrong request',
+        //   });
+        //   console.log('Bad request');
+        //   refs.article.innerHTML = '';
+        //   //   return;
+        // }
+
         if (data.length >= 10) {
           error({
             text: 'Too many matches found. Please enter a more specific query!',
@@ -43,8 +45,10 @@ refs.inputSrch.addEventListener(
           refs.countries.innerHTML = '';
           return;
         }
-        murkupCountries(data);
-        refs.article.innerHTML = '';
+        if (Array.isArray(data)) {
+          murkupCountries(data);
+          refs.article.innerHTML = '';
+        }
       })
       .catch(error => {
         console.log(error);
